@@ -1,22 +1,21 @@
 package com.baotuan.group;
 
 import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.content.Context;
-import android.os.Build;
-import android.os.Bundle;
-import android.view.Gravity;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
+
+import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.MapView;
 
 
 public class MainActivity extends ActionBarActivity
@@ -32,6 +31,13 @@ public class MainActivity extends ActionBarActivity
      */
     private CharSequence mTitle;
 
+    private MapView mMapView;
+    private BaiduMap mBaiduMap;
+
+
+    private DrawerLayout mDrawerLayout;
+    private RecyclerView mDrawerList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,10 +47,28 @@ public class MainActivity extends ActionBarActivity
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
 
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerLayout.closeDrawers();
+
         // Set up the drawer.
-        mNavigationDrawerFragment.setUp(
-                R.id.navigation_drawer,
-                (DrawerLayout) findViewById(R.id.drawer_layout));
+        mNavigationDrawerFragment.setUp(R.id.navigation_drawer, mDrawerLayout);
+
+
+//        SDKInitializer.initialize(getApplicationContext());
+//
+//        Intent intent = getIntent();
+//        if (intent.hasExtra("x") && intent.hasExtra("y")) {
+//            // 当用intent参数时，设置中心点为指定点
+//            Bundle b = intent.getExtras();
+//            LatLng p = new LatLng(b.getDouble("y"), b.getDouble("x"));
+//            mMapView = new MapView(this,
+//                    new BaiduMapOptions().mapStatus(new MapStatus.Builder()
+//                            .target(p).build()));
+//        } else {
+//            mMapView = new MapView(this, new BaiduMapOptions());
+//        }
+//        setContentView(mMapView);
+//        mBaiduMap = mMapView.getMap();
     }
 
     @Override
